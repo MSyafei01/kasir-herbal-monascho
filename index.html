@@ -15,6 +15,7 @@
             --success: #4caf50;
             --danger: #f44336;
             --info: #2196f3;
+            --warning: #ff9800;
             --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             --transition: all 0.3s ease;
         }
@@ -56,6 +57,7 @@
             padding: 25px;
             border-radius: 15px;
             box-shadow: var(--shadow);
+            position: relative;
         }
 
         .logo {
@@ -80,6 +82,31 @@
             font-size: 1.5rem;
             opacity: 0.9;
             font-weight: 400;
+        }
+
+        .header-buttons {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .report-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .report-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
         }
 
         .order-section, .summary-section {
@@ -349,11 +376,13 @@
             background-color: white;
             border-radius: 15px;
             width: 90%;
-            max-width: 500px;
+            max-width: 800px;
             padding: 25px;
             box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
             position: relative;
             animation: modalFadeIn 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         @keyframes modalFadeIn {
@@ -449,6 +478,73 @@
             background: var(--dark);
         }
 
+        /* Report Styles */
+        .report-filters {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .report-summary {
+            background: var(--light);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .summary-card {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .summary-card h3 {
+            color: var(--dark);
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .summary-card .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .sales-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .sales-table th, .sales-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .sales-table th {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .sales-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .sales-table tr:hover {
+            background-color: #f1f8e9;
+        }
+
         /* Print Styles */
         @media print {
             body * {
@@ -465,7 +561,7 @@
                 height: 100%;
                 background-color: white;
             }
-            .close-modal, .print-btn {
+            .close-modal, .print-btn, .report-filters {
                 display: none;
             }
         }
@@ -479,6 +575,11 @@
                 <h1>KASIR MONASCHO</h1>
             </div>
             <h2>Sehatkan Badanmu dengan MONASCHO</h2>
+            <div class="header-buttons">
+                <button class="report-btn" id="showReportBtn">
+                    <i class="fas fa-chart-bar"></i> Rekap Penjualan
+                </button>
+            </div>
         </header>
 
         <section class="order-section">
@@ -651,12 +752,75 @@
         </div>
     </div>
 
+    <!-- Modal untuk rekap penjualan -->
+    <div class="modal" id="reportModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeReportModal">&times;</span>
+            <h2 class="modal-title">
+                <i class="fas fa-chart-bar"></i>
+                Rekap Data Penjualan
+            </h2>
+            
+            <div class="report-filters">
+                <div class="form-group">
+                    <label for="startDate">Dari Tanggal:</label>
+                    <input type="date" id="startDate">
+                </div>
+                <div class="form-group">
+                    <label for="endDate">Sampai Tanggal:</label>
+                    <input type="date" id="endDate">
+                </div>
+            </div>
+            
+            <button class="print-btn" id="generateReportBtn">
+                <i class="fas fa-cog"></i> Generate Report
+            </button>
+            
+            <div class="report-summary">
+                <h3>Ringkasan Penjualan</h3>
+                <div class="summary-grid">
+                    <div class="summary-card">
+                        <h3>Total Penjualan</h3>
+                        <div class="value" id="totalSales">Rp 0</div>
+                    </div>
+                    <div class="summary-card">
+                        <h3>Jumlah Transaksi</h3>
+                        <div class="value" id="totalTransactions">0</div>
+                    </div>
+                    <div class="summary-card">
+                        <h3>Produk Terlaris</h3>
+                        <div class="value" id="bestSeller">-</div>
+                    </div>
+                </div>
+                
+                <h3>Rincian Penjualan per Produk</h3>
+                <table class="sales-table">
+                    <thead>
+                        <tr>
+                            <th>Nama Produk</th>
+                            <th>Terjual</th>
+                            <th>Total Penjualan</th>
+                        </tr>
+                    </thead>
+                    <tbody id="salesTableBody">
+                        <!-- Sales data will be generated here -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <button class="print-btn" id="printReportBtn">
+                <i class="fas fa-print"></i> Cetak Laporan
+            </button>
+        </div>
+    </div>
+
     <script>
         // Data state
         let orders = [];
         let customerName = '';
         let discount = 0;
         let shippingCost = 0;
+        let salesHistory = JSON.parse(localStorage.getItem('monaschoSales')) || [];
 
         // Elemen DOM
         const productButtons = document.querySelectorAll('.product-btn');
@@ -673,10 +837,43 @@
         const closeModal = document.getElementById('closeModal');
         const receiptContent = document.getElementById('receiptContent');
         const printReceiptBtn = document.getElementById('printReceipt');
+        const reportModal = document.getElementById('reportModal');
+        const showReportBtn = document.getElementById('showReportBtn');
+        const closeReportModal = document.getElementById('closeReportModal');
+        const generateReportBtn = document.getElementById('generateReportBtn');
+        const printReportBtn = document.getElementById('printReportBtn');
+        const startDateInput = document.getElementById('startDate');
+        const endDateInput = document.getElementById('endDate');
+        const totalSalesEl = document.getElementById('totalSales');
+        const totalTransactionsEl = document.getElementById('totalTransactions');
+        const bestSellerEl = document.getElementById('bestSeller');
+        const salesTableBody = document.getElementById('salesTableBody');
+
+        // Set default dates for report (current month)
+        const today = new Date();
+        const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+        const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+        
+        startDateInput.value = formatDateForInput(firstDayOfMonth);
+        endDateInput.value = formatDateForInput(lastDayOfMonth);
 
         // Format currency
         function formatCurrency(amount) {
             return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(amount);
+        }
+
+        // Format date for input field (YYYY-MM-DD)
+        function formatDateForInput(date) {
+            const year = date.getFullYear();
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const day = date.getDate().toString().padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        // Format date for display (DD/MM/YYYY)
+        function formatDateForDisplay(dateString) {
+            const [year, month, day] = dateString.split('-');
+            return `${day}/${month}/${year}`;
         }
 
         // Tambah pesanan
@@ -840,56 +1037,35 @@
             receiptModal.style.display = 'flex';
         }
 
-        // Checkout
-        function checkout() {
-            if (orders.length === 0) return;
+        // Save sales data to localStorage
+        function saveSalesData() {
+            const subtotal = orders.reduce((sum, order) => sum + order.total, 0);
+            discount = parseInt(discountInput.value) || 0;
+            shippingCost = parseInt(shippingInput.value) || 0;
+            const total = Math.max(0, subtotal - discount + shippingCost);
+            customerName = customerNameInput.value || 'Pelanggan';
             
-            // Tampilkan struk
-            showReceipt();
+            const saleRecord = {
+                id: Date.now(),
+                date: new Date().toISOString().split('T')[0], // YYYY-MM-DD
+                customer: customerName,
+                items: [...orders],
+                subtotal: subtotal,
+                discount: discount,
+                shipping: shippingCost,
+                total: total
+            };
+            
+            salesHistory.push(saleRecord);
+            localStorage.setItem('monaschoSales', JSON.stringify(salesHistory));
         }
 
-        // Event listeners untuk product buttons
-        productButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const productName = button.dataset.name;
-                const productPrice = parseInt(button.dataset.price);
-                addOrder(productName, productPrice);
+        // Generate sales report
+        function generateSalesReport() {
+            const startDate = startDateInput.value;
+            const endDate = endDateInput.value;
+            
+            // Filter sales data by date range
+            const filteredSales = salesHistory.filter(sale => {
+                return sale.date >= startDate && sale.date <= endDate;
             });
-        });
-
-        // Event listeners untuk input changes
-        discountInput.addEventListener('input', updateSummary);
-        shippingInput.addEventListener('input', updateSummary);
-        customerNameInput.addEventListener('input', () => {
-            customerName = customerNameInput.value;
-        });
-
-        // Checkout button
-        checkoutBtn.addEventListener('click', checkout);
-        
-        // Modal event listeners
-        closeModal.addEventListener('click', () => {
-            receiptModal.style.display = 'none';
-        });
-        
-        printReceiptBtn.addEventListener('click', () => {
-            window.print();
-        });
-        
-        // Close modal when clicking outside
-        window.addEventListener('click', (event) => {
-            if (event.target === receiptModal) {
-                receiptModal.style.display = 'none';
-            }
-        });
-
-        // Inisialisasi aplikasi
-        function initApp() {
-            renderOrders();
-        }
-
-        // Jalankan aplikasi
-        initApp();
-    </script>
-</body>
-</html>
