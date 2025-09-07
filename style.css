@@ -558,3 +558,66 @@
                 display: none;
             }
         }
+        /* Style untuk bagian QRIS */
+            .qris-section {
+                text-align: center;
+                margin: 15px 0;
+                padding: 10px;
+                border-top: 1px dashed #ccc;
+                border-bottom: 1px dashed #ccc;
+        }
+
+            .qris-section h3 {
+                margin: 0 0 10px 0;
+                font-size: 14px;
+                color: #333;
+            }
+
+            .qris-container {
+                background: #f9f9f9;
+                padding: 15px;
+                border-radius: 8px;
+                display: inline-block;
+                max-width: 100%;
+            }
+
+            .qris-image {
+                width: 180px;
+                height: 180px;
+                border: 1px solid #ddd;
+                margin: 0 auto 10px;
+                display: block;
+            }
+
+            .qris-info {
+                font-size: 12px;
+                margin: 5px 0;
+                color: #555;
+            }
+
+            .qris-standard {
+                font-size: 11px;
+                font-weight: bold;
+                margin: 5px 0;
+                color: #333;
+            }
+
+            .qris-footer {
+                font-size: 10px;
+                margin: 8px 0 0;
+                color: #666;
+                line-height: 1.3;
+            }
+
+            /* Media query untuk cetak */
+            @media print {
+            .qris-container {
+                background: white;
+                border: 1px solid #000;
+            }
+            
+            .qris-image {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            }
