@@ -267,6 +267,7 @@
             </div>
             
             <div class="receipt-footer">
+                <p>Nomor Rekening BCA : 0244060257 Dwi Endah </p>
                 <p>Terima kasih telah berbelanja di MONASCHO!</p>
                 <p>*** Semoga Sehat Selalu ***</p>
             </div>
