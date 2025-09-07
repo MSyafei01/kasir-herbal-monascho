@@ -274,6 +274,25 @@ function generateReceipt() {
                 <span>${formatCurrency(total)}</span>
             </div>
         </div>
+        
+        <!-- Bagian QRIS Pembayaran -->
+        <div class="qris-section">
+            <h3>Pembayaran QRIS</h3>
+            <div class="qris-container">
+                <div id="qrisImage"></div>
+                <p class="qris-info">Scan QR code untuk pembayaran</p>
+                <p class="qris-standard">QR Code Standar Pembayaran Nasional</p>
+                <p class="qris-footer">SATU QRIS UNTUK SEMUA<br>Cek aplikasi penyelenggara di: www.aspi-qris.id</p>
+            </div>
+        </div>
+        
+        <div class="receipt-footer">
+            <p> Pembayaran Nomer Rekening BCA 0244060257 Dwi Endah Kurniawati </p>
+            <p>Dicetak oleh: 93600114</p>
+            <p>Versi Cetak: 1.0-2023.12.07</p>
+            <p>Terima kasih telah berbelanja di MONASCHO!</p>
+            <p>*** Semoga Sehat Selalu ***</p>
+        </div>
     `;
 }
 
