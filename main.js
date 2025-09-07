@@ -204,6 +204,8 @@
         shippingValueEl.textContent = formatCurrency(shippingCost);
         totalEl.textContent = formatCurrency(total);
     }
+
+
 // Generate receipt content
 function generateReceipt() {
     const subtotal = orders.reduce((sum, order) => sum + order.total, 0);
@@ -275,7 +277,7 @@ function generateReceipt() {
         
         <div class="receipt-footer">
             <p>Dicetak oleh: SYABAQI</p>
-            <p>Nomer Rekening BCA 0244060257 Dwi Endah Kurniawati </p>
+            <p>Nomer Rekening BCA 0244060257 Dwi Endah Kurniawati</p>
             <p>Terima kasih telah berbelanja di MONASCHO!</p>
             <p>*** Semoga Sehat Selalu ***</p>
         </div>
