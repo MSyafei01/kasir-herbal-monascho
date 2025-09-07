@@ -218,6 +218,10 @@ function generateReceipt() {
     const now = new Date();
     const orderNumber = `MNSC-${now.getFullYear()}${(now.getMonth()+1).toString().padStart(2, '0')}${now.getDate().toString().padStart(2, '0')}-${now.getHours().toString().padStart(2, '0')}${now.getMinutes().toString().padStart(2, '0')}`;
     
+    // Tentukan apakah perlu format kompak (banyak items)
+    const isCompact = orders.length > 5;
+    const itemsClass = isCompact ? 'compact-items' : '';
+    
     return `
         <div class="receipt-header">
             <h2>MONASCHO HERBAL</h2>
@@ -267,13 +271,6 @@ function generateReceipt() {
             </div>
         </div>
         
-        <!-- Bagian QRIS Pembayaran -->
-        <div class="qris-section">
-            <h3>Pembayaran QRIS</h3>
-            <div class="qris-container">
-                <img src="https://raw.githubusercontent.com/MSyafei01/kasir-herbal-monascho/master/qrisImage.jpeg" alt="QR Code Pembayaran" class="qris-image">            
-            </div>
-        </div>
 
         <div class="receipt-footer">
             <p>Dicetak oleh: SYABAQI</p>
