@@ -1,4 +1,4 @@
-// Data state
+    // Data state
     let orders = [];
     let customerName = '';
     let discount = 0;
@@ -319,9 +319,6 @@
         shippingInput.value = '0';
         renderOrders();
     }
-
-
-    
 
     // Generate sales report
     function generateSalesReport() {
