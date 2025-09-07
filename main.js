@@ -271,10 +271,9 @@ function generateReceipt() {
         <div class="qris-section">
             <h3>Pembayaran QRIS</h3>
             <div class="qris-container">
-                <img src="https://raw.githubusercontent.com/MSyafei01/kasir-herbal-monascho/main/qrisImage.jpeg" alt="QR Code Pembayaran" class="qris-image">
-            </div>
+                <img src="https://raw.githubusercontent.com/MSyafei01/kasir-herbal-monascho/master/qrisImage.jpeg" alt="QR Code Pembayaran" class="qris-image">            </div>
         </div>
-        
+
         <div class="receipt-footer">
             <p>Dicetak oleh: SYABAQI</p>
             <p>Nomer Rekening BCA 0244060257 Dwi Endah Kurniawati</p>
