@@ -287,6 +287,7 @@ function generateReceipt() {
         </div>
         
         <div class="receipt-footer">
+            <p> Pembayaran Nomer Rekening BCA 0244060257 Dwi Endah Kurniawati </p>
             <p>Dicetak oleh: 93600114</p>
             <p>Versi Cetak: 1.0-2023.12.07</p>
             <p>Terima kasih telah berbelanja di MONASCHO!</p>

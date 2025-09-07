@@ -558,66 +558,120 @@
                 display: none;
             }
         }
-        /* Style untuk bagian QRIS */
-            .qris-section {
-                text-align: center;
-                margin: 15px 0;
-                padding: 10px;
-                border-top: 1px dashed #ccc;
-                border-bottom: 1px dashed #ccc;
-        }
+/* Style untuk bagian QRIS */
+.qris-section {
+    text-align: center;
+    margin: 15px 0;
+    padding: 10px;
+    border-top: 1px dashed #ccc;
+    border-bottom: 1px dashed #ccc;
+}
 
-            .qris-section h3 {
-                margin: 0 0 10px 0;
-                font-size: 14px;
-                color: #333;
-            }
+.qris-section h3 {
+    margin: 0 0 10px 0;
+    font-size: 14px;
+    color: #333;
+}
 
-            .qris-container {
-                background: #f9f9f9;
-                padding: 15px;
-                border-radius: 8px;
-                display: inline-block;
-                max-width: 100%;
-            }
+.qris-container {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    display: inline-block;
+    max-width: 100%;
+}
 
-            .qris-image {
-                width: 180px;
-                height: 180px;
-                border: 1px solid #ddd;
-                margin: 0 auto 10px;
-                display: block;
-            }
+.qris-image {
+    width: 180px;
+    height: 180px;
+    border: 1px solid #ddd;
+    margin: 0 auto 10px;
+    display: block;
+}
 
-            .qris-info {
-                font-size: 12px;
-                margin: 5px 0;
-                color: #555;
-            }
+.qris-info {
+    font-size: 12px;
+    margin: 5px 0;
+    color: #555;
+}
 
-            .qris-standard {
-                font-size: 11px;
-                font-weight: bold;
-                margin: 5px 0;
-                color: #333;
-            }
+.qris-standard {
+    font-size: 11px;
+    font-weight: bold;
+    margin: 5px 0;
+    color: #333;
+}
 
-            .qris-footer {
-                font-size: 10px;
-                margin: 8px 0 0;
-                color: #666;
-                line-height: 1.3;
-            }
+.qris-footer {
+    font-size: 10px;
+    margin: 8px 0 0;
+    color: #666;
+    line-height: 1.3;
+}
 
-            /* Media query untuk cetak */
-            @media print {
-            .qris-container {
-                background: white;
-                border: 1px solid #000;
-            }
-            
-            .qris-image {
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-            }
-            }
+/* Media query untuk cetak */
+@media print {
+    .qris-container {
+        background: white;
+        border: 1px solid #000;
+    }
+    
+    .qris-image {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    
+    /* Sembunyikan tombol saat mencetak */
+    .print-btn, .close-modal {
+        display: none !important;
+    }
+}
+
+/* Style untuk struk */
+.receipt {
+    width: 100%;
+    max-width: 400px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.store-info {
+    text-align: center;
+    margin-bottom: 15px;
+    border-bottom: 1px dashed #000;
+    padding-bottom: 10px;
+}
+
+.store-info h2 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.receipt-details {
+    margin-bottom: 15px;
+}
+
+.receipt-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.receipt-items {
+    margin-bottom: 15px;
+    border-bottom: 1px dashed #000;
+    padding-bottom: 10px;
+}
+
+.receipt-totals {
+    margin-bottom: 15px;
+    border-bottom: 1px dashed #000;
+    padding-bottom: 10px;
+}
+
+.receipt-footer {
+    text-align: center;
+    font-size: 12px;
+    margin-top: 15px;
+}
