@@ -547,7 +547,7 @@
                 visibility: visible;
             }
             .modal {
-                position: absolute;
+                position: center;
                 left: 0;
                 top: 0;
                 width: 100%;
