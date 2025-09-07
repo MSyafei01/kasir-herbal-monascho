@@ -204,75 +204,83 @@
         shippingValueEl.textContent = formatCurrency(shippingCost);
         totalEl.textContent = formatCurrency(total);
     }
-
-    // Generate receipt content
-    function generateReceipt() {
-        const subtotal = orders.reduce((sum, order) => sum + order.total, 0);
-        discount = parseInt(discountInput.value) || 0;
-        shippingCost = parseInt(shippingInput.value) || 0;
-        const total = Math.max(0, subtotal - discount + shippingCost);
-        customerName = customerNameInput.value || 'Pelanggan';
+// Generate receipt content
+function generateReceipt() {
+    const subtotal = orders.reduce((sum, order) => sum + order.total, 0);
+    discount = parseInt(discountInput.value) || 0;
+    shippingCost = parseInt(shippingInput.value) || 0;
+    const total = Math.max(0, subtotal - discount + shippingCost);
+    customerName = customerNameInput.value || 'Pelanggan';
+    
+    // Generate order number (YYYYMMDD-HHMMSS)
+    const now = new Date();
+    const orderNumber = `MNSC-${now.getFullYear()}${(now.getMonth()+1).toString().padStart(2, '0')}${now.getDate().toString().padStart(2, '0')}-${now.getHours().toString().padStart(2, '0')}${now.getMinutes().toString().padStart(2, '0')}`;
+    
+    return `
+        <div class="receipt-header">
+            <h2>MONASCHO HERBAL</h2>
+            <p>Sehatkan Badanmu dengan Monascho</p>
+        </div>
         
-        // Generate order number (YYYYMMDD-HHMMSS)
-        const now = new Date();
-        const orderNumber = `MNSC-${now.getFullYear()}${(now.getMonth()+1).toString().padStart(2, '0')}${now.getDate().toString().padStart(2, '0')}-${now.getHours().toString().padStart(2, '0')}${now.getMinutes().toString().padStart(2, '0')}`;
+        <div class="receipt-details">
+            <div class="receipt-item">
+                <span>No. Transaksi:</span>
+                <span>${orderNumber}</span>
+            </div>
+            <div class="receipt-item">
+                <span>Tanggal:</span>
+                <span>${now.toLocaleString('id-ID')}</span>
+            </div>
+            <div class="receipt-item">
+                <span>Nama Pembeli:</span>
+                <span>${customerName}</span>
+            </div>
+        </div>
         
-        return `
-            <div class="receipt-header">
-                <h2>MONASCHO HERBAL</h2>
-                <p>Sehatkan Badanmu dengan Monascho</p>
+        <div class="receipt-items">
+            ${orders.map(order => `
+                <div class="receipt-item">
+                    <span>${order.quantity}x ${order.name}</span>
+                    <span>${formatCurrency(order.total)}</span>
+                </div>
+            `).join('')}
+        </div>
+        
+        <div class="receipt-totals">
+            <div class="receipt-item">
+                <span>Subtotal:</span>
+                <span>${formatCurrency(subtotal)}</span>
             </div>
-            
-            <div class="receipt-details">
-                <div class="receipt-item">
-                    <span>No. Transaksi:</span>
-                    <span>${orderNumber}</span>
-                </div>
-                <div class="receipt-item">
-                    <span>Tanggal:</span>
-                    <span>${now.toLocaleString('id-ID')}</span>
-                </div>
-                <div class="receipt-item">
-                    <span>Nama Pembeli:</span>
-                    <span>${customerName}</span>
-                </div>
+            <div class="receipt-item">
+                <span>Diskon:</span>
+                <span>- ${formatCurrency(discount)}</span>
             </div>
-            
-            <div class="receipt-items">
-                ${orders.map(order => `
-                    <div class="receipt-item">
-                        <span>${order.quantity}x ${order.name}</span>
-                        <span>${formatCurrency(order.total)}</span>
-                    </div>
-                `).join('')}
+            <div class="receipt-item">
+                <span>Biaya Pengiriman:</span>
+                <span>${formatCurrency(shippingCost)}</span>
             </div>
-            
-            <div class="receipt-totals">
-                <div class="receipt-item">
-                    <span>Subtotal:</span>
-                    <span>${formatCurrency(subtotal)}</span>
-                </div>
-                <div class="receipt-item">
-                    <span>Diskon:</span>
-                    <span>- ${formatCurrency(discount)}</span>
-                </div>
-                <div class="receipt-item">
-                    <span>Biaya Ongkir:</span>
-                    <span>${formatCurrency(shippingCost)}</span>
-                </div>
-                <div class="receipt-item" style="font-weight: bold;">
-                    <span>TOTAL:</span>
-                    <span>${formatCurrency(total)}</span>
-                </div>
+            <div class="receipt-item" style="font-weight: bold;">
+                <span>TOTAL:</span>
+                <span>${formatCurrency(total)}</span>
             </div>
-            
-            <div class= "receipt-footer">
-                <p>Nomor Rekening BCA : 0244060257 Dwi Endah </p>
-                <p>Terima kasih telah berbelanja di MONASCHO!</p>
-                <p>*** Semoga Sehat Selalu ***</p>
+        </div>
+        
+        <!-- Bagian QRIS Pembayaran -->
+        <div class="qris-section">
+            <h3>Pembayaran QRIS</h3>
+            <div class="qris-container">
+                <img src="https://github.com/MSyafei01/kasir-herbal-monascho/blob/master/qrisImage.jpeg" alt="QR Code Pembayaran" class="qris-image">
             </div>
-        `;
-    }
+        </div>
+        
+        <div class="receipt-footer">
+            <p>Dicetak oleh: SYABAQI</p>
+            <p>Nomer Rekening BCA 0244060257 Dwi Endah Kurniawati </p>
+            <p>Terima kasih telah berbelanja di MONASCHO!</p>
+            <p>*** Semoga Sehat Selalu ***</p>
+        </div>
+    `;
+}
 
     // Show receipt modal
     function showReceipt() {
