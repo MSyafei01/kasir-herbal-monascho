@@ -267,6 +267,8 @@
             </div>
             
             <div class="receipt-footer">
+                <p>Dicetak oleh: SYABAQI</p>
+                <p>Nomer Rekening BCA 0244060257 Dwi Endah Kurniawati </p>
                 <p>Terima kasih telah berbelanja di MONASCHO!</p>
                 <p>*** Semoga Sehat Selalu ***</p>
             </div>
