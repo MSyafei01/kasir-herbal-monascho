@@ -275,6 +275,7 @@ function generateReceipt() {
         <div class="receipt-footer">
             <p>Dicetak oleh: SYABAQI</p>
             <p>Nomer Rekening BCA 0244060257 Dwi Endah Kurniawati</p>
+            <p> Note  : transfer dibawah jam 15.00 kami kirim hari ini, diatas jam 15.00 kami kirim besok</p>
             <p>Terima kasih telah berbelanja di MONASCHO!</p>
             <p>*** Semoga Sehat Selalu ***</p>
         </div>
